@@ -1,0 +1,1 @@
+This project shows my first steps in the area of AI using STM microcontroller and examples
