@@ -35,7 +35,11 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/b_l475e_iot01a1_conf.h \
  ../Drivers/BSP/B-L475E-IOT01A1/b_l475e_iot01a1_errno.h \
  ../Middlewares/ST/AI/Inc/ai_platform.h ../X-CUBE-AI/App/network.h \
- ../X-CUBE-AI/App/network_config.h ../X-CUBE-AI/App/network_data.h
+ ../X-CUBE-AI/App/network_config.h ../X-CUBE-AI/App/network_data.h \
+ ../Core/Inc/Uart/uart1.h ../Core/Inc/CRC/crc.h ../Core/Inc/GPIO/gpio.h \
+ ../Core/Inc/SystemClock/systemclock.h ../Core/Inc/commonIncludes.h \
+ ../Core/Inc/Logging/logging.h ../Core/Inc/ErrorHandler/errorHandler.h \
+ ../Core/Inc/stmAiExampleConfiguration.h
 
 ../Core/Inc/main.h:
 
@@ -116,3 +120,19 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../X-CUBE-AI/App/network_config.h:
 
 ../X-CUBE-AI/App/network_data.h:
+
+../Core/Inc/Uart/uart1.h:
+
+../Core/Inc/CRC/crc.h:
+
+../Core/Inc/GPIO/gpio.h:
+
+../Core/Inc/SystemClock/systemclock.h:
+
+../Core/Inc/commonIncludes.h:
+
+../Core/Inc/Logging/logging.h:
+
+../Core/Inc/ErrorHandler/errorHandler.h:
+
+../Core/Inc/stmAiExampleConfiguration.h:

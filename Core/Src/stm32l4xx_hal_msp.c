@@ -22,7 +22,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 /* USER CODE BEGIN Includes */
-
+#include "commonDefinitions.h"
+#include "commonIncludes.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -142,7 +143,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK2;
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
     {
-      Error_Handler();
+  	  errorHandler();
     }
 
     /* Peripheral clock enable */

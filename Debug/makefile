@@ -14,6 +14,12 @@ RM := rm -rf
 -include Drivers/BSP/Components/lsm6dsl/subdir.mk
 -include Drivers/BSP/B-L475E-IOT01A1/subdir.mk
 -include Core/Startup/subdir.mk
+-include Core/Src/Uart/subdir.mk
+-include Core/Src/SystemClock/subdir.mk
+-include Core/Src/Logging/subdir.mk
+-include Core/Src/GPIO/subdir.mk
+-include Core/Src/ErrorHandler/subdir.mk
+-include Core/Src/CRC/subdir.mk
 -include Core/Src/subdir.mk
 -include subdir.mk
 -include objects.mk

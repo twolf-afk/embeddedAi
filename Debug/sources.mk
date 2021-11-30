@@ -20,6 +20,12 @@ OBJCOPY_BIN :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+Core/Src/CRC \
+Core/Src/ErrorHandler \
+Core/Src/GPIO \
+Core/Src/Logging \
+Core/Src/SystemClock \
+Core/Src/Uart \
 Core/Src \
 Core/Startup \
 Drivers/BSP/B-L475E-IOT01A1 \
