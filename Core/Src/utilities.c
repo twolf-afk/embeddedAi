@@ -1,13 +1,11 @@
 
 /* Includes ------------------------------------------------------------------*/
-#include "Logging/logging.h"
+#include "utilities.h"
 
 /* Private includes ----------------------------------------------------------*/
-#include "stmAiExampleConfiguration.h"
-#include "Uart/uart1.h"
-
 #include <stdio.h>
-#include <string.h>
+#include <stdarg.h>
+
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
@@ -17,31 +15,33 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* Private function prototypes -----------------------------------------------*/
-static void writeMessageToStLink(char* message, uint16_t length);
-static void writeMessageToUsb(void);
 
 /* Private user code ---------------------------------------------------------*/
-void writeLoggingMessage(char* message)
+
+
+void addingNumbers(uint8_t amountOfNumbers, ...)		// This is a variadic function, it takes an infinite amount of arguments
 {
 
-	if (useStLinkForLogging)
-	{
-		writeMessageToStLink(strcat(message, "\r\n"), strlen(message));
+	short sum = 0;
+
+	// Initializes a list of arguments
+    va_list variadic_arguments;
+
+    // Makes access to the arguments
+    // amountOfNumbers are the amount of arguments
+    va_start(variadic_arguments, amountOfNumbers);
+
+    for (int i = 0; i < amountOfNumbers; ++i) {
+
+    	// with 'va_arg' you can access the items
+    	// 'int' indicates the type
+    	int number = va_arg(variadic_arguments, int);
+
+    	sum = sum + number;
+
 	}
-	if (useUsbForLogging)
-	{
-		writeMessageToUsb();
-	}
-}
 
-static void writeMessageToStLink(char* message, uint16_t length)
-{
-
-	uart1_transmit(message, length);
-
-}
-
-static void writeMessageToUsb(void)
-{
+    // closes the traversal through argument list
+    va_end(variadic_arguments);
 
 }

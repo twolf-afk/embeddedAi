@@ -1,3 +1,3 @@
 logging.c:24:6:writeLoggingMessage	24	static
 logging.c:37:13:writeMessageToStLink	16	static
-logging.c:44:13:writeMessageToUsb	8	static
+logging.c:44:13:writeMessageToUsb	4	static

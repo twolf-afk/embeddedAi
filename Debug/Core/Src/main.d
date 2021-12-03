@@ -39,7 +39,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/Uart/uart1.h ../Core/Inc/CRC/crc.h ../Core/Inc/GPIO/gpio.h \
  ../Core/Inc/SystemClock/systemclock.h ../Core/Inc/commonIncludes.h \
  ../Core/Inc/Logging/logging.h ../Core/Inc/ErrorHandler/errorHandler.h \
- ../Core/Inc/stmAiExampleConfiguration.h
+ ../Core/Inc/stmAiExampleConfiguration.h ../Core/Inc/utilities.h
 
 ../Core/Inc/main.h:
 
@@ -136,3 +136,5 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/ErrorHandler/errorHandler.h:
 
 ../Core/Inc/stmAiExampleConfiguration.h:
+
+../Core/Inc/utilities.h:

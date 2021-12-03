@@ -72,7 +72,6 @@ int main(void)
   HAL_Init();
 
   /* Configure the system clock */
-//  SystemClock_Config();
   initializeSystemClock();
 
   /* Initialize all configured peripherals */
@@ -80,14 +79,13 @@ int main(void)
   initializeUart1();
   initializeCRC();
 
-  dataRdyIntReceived = 0;
   MEMS_Init();
   AI_Init(ai_network_data_weights_get(), activations);
 
-  /* Infinite loop */
-
   writeLoggingMessage("Start Main");
+  writeLoggingMessage("Peripheral initialized");
 
+  dataRdyIntReceived = 0;
   uint32_t write_index = 0;
   while (1)
   {
@@ -95,7 +93,31 @@ int main(void)
       dataRdyIntReceived = 0;
       LSM6DSL_Axes_t acc_axes;
       LSM6DSL_ACC_GetAxes(&MotionSensor, &acc_axes);
+
+//      int32_t x = acc_axes.x;
+//      int32_t y = acc_axes.y;
+//      int32_t z = acc_axes.z;
+//
+//      int nDigits = floor(log10(abs(x))) + 1;
+//
+//      char str[nDigits];
+//
+//      sprintf(str, "%ld", x);
+
+//      int test = malloc(sizeof(char)*(int)log10((int) acc_axes.x));
+
+      // Format specifiers
+      // %d indicates an short signed
+
+//      sprintf(str, "%lu", acc_axes.x);
+
       // printf("% 5d, % 5d, % 5d\r\n",  (int) acc_axes.x, (int) acc_axes.y, (int) acc_axes.z);
+
+
+
+
+
+
 
       /* Normalize data to [-1; 1] and accumulate into input buffer */
       /* Note: window overlapping can be managed here */

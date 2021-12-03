@@ -1,7 +1,7 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef COMMONINCLUDES_H
-#define COMMONINCLUDES_H
+#ifndef UTILITIES_H
+#define UTILITIES_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -10,10 +10,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 
 /* Private includes ----------------------------------------------------------*/
-#include "Logging/logging.h"
-#include "ErrorHandler/errorHandler.h"
-#include "stmAiExampleConfiguration.h"
-#include "utilities.h"
+#include <stdio.h>
 
 /* Exported types ------------------------------------------------------------*/
 
@@ -22,6 +19,7 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 
 /* Exported functions prototypes ---------------------------------------------*/
+void addingNumbers(uint8_t amountOfNumbers, ...);
 
 /* Private defines -----------------------------------------------------------*/
 
@@ -30,5 +28,5 @@ extern "C" {
 }
 #endif
 
-#endif
+#endif /* LOGGING_H */
 

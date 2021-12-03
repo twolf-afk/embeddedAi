@@ -31,7 +31,7 @@ Core/Src/Uart/uart1.o: ../Core/Src/Uart/uart1.c ../Core/Inc/Uart/uart1.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h \
  ../Core/Inc/commonIncludes.h ../Core/Inc/Logging/logging.h \
  ../Core/Inc/ErrorHandler/errorHandler.h \
- ../Core/Inc/stmAiExampleConfiguration.h
+ ../Core/Inc/stmAiExampleConfiguration.h ../Core/Inc/utilities.h
 
 ../Core/Inc/Uart/uart1.h:
 
@@ -102,3 +102,5 @@ Core/Src/Uart/uart1.o: ../Core/Src/Uart/uart1.c ../Core/Inc/Uart/uart1.h \
 ../Core/Inc/ErrorHandler/errorHandler.h:
 
 ../Core/Inc/stmAiExampleConfiguration.h:
+
+../Core/Inc/utilities.h:

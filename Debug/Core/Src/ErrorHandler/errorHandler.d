@@ -2,7 +2,7 @@ Core/Src/ErrorHandler/errorHandler.o: \
  ../Core/Src/ErrorHandler/errorHandler.c \
  ../Core/Inc/ErrorHandler/errorHandler.h ../Core/Inc/commonIncludes.h \
  ../Core/Inc/Logging/logging.h ../Core/Inc/ErrorHandler/errorHandler.h \
- ../Core/Inc/stmAiExampleConfiguration.h \
+ ../Core/Inc/stmAiExampleConfiguration.h ../Core/Inc/utilities.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h \
  ../Core/Inc/stm32l4xx_hal_conf.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_rcc.h \
@@ -44,6 +44,8 @@ Core/Src/ErrorHandler/errorHandler.o: \
 ../Core/Inc/ErrorHandler/errorHandler.h:
 
 ../Core/Inc/stmAiExampleConfiguration.h:
+
+../Core/Inc/utilities.h:
 
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h:
 
