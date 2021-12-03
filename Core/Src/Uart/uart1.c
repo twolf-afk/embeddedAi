@@ -34,9 +34,9 @@ void initializeUart1(void)
 	}
 }
 
-void uart1_transmit(uint8_t* pointer, uint16_t length)
+void uart1_transmit(char* pointer, uint16_t length)
 {
-	HAL_UART_Transmit(&huart1, pointer, length, HAL_MAX_DELAY);
+	HAL_UART_Transmit(&huart1, (uint8_t *)pointer, length, HAL_MAX_DELAY);
 }
 
 int _write(int fd, char * ptr, int len)

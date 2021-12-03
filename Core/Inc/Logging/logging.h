@@ -19,7 +19,7 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 
 /* Exported functions prototypes ---------------------------------------------*/
-void writeLoggingMessage(uint8_t* message);
+void writeLoggingMessage(char* message);
 
 /* Private defines -----------------------------------------------------------*/
 

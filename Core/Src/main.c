@@ -1,4 +1,3 @@
-/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file           : main.c
@@ -16,12 +15,11 @@
   *
   ******************************************************************************
   */
-/* USER CODE END Header */
+
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
 #include "lsm6dsl.h"
 #include "b_l475e_iot01a1_bus.h"
 #include "ai_platform.h"
@@ -33,25 +31,14 @@
 #include "GPIO/gpio.h"
 #include "SystemClock/systemclock.h"
 #include "commonIncludes.h"
-/* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
-
-/* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-/* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-
-/* USER CODE BEGIN PV */
 LSM6DSL_Object_t MotionSensor;
 volatile uint32_t dataRdyIntReceived;
 
@@ -62,21 +49,15 @@ uint8_t activations[AI_NETWORK_DATA_ACTIVATIONS_SIZE];
 const char* activities[AI_NETWORK_OUT_1_SIZE] = {
   "stationary", "walking", "running"
 };
-/* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-/* USER CODE BEGIN PFP */
 static void MEMS_Init(void);
 
 static void AI_Init(ai_handle w_addr, ai_handle act_addr);
 static void AI_Run(float *pIn, float *pOut);
 static uint32_t argmax(const float * values, uint32_t len);
-/* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
 
 /**
   * @brief  The application entry point.
@@ -84,39 +65,26 @@ static uint32_t argmax(const float * values, uint32_t len);
   */
 int main(void)
 {
-  /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
   /* Configure the system clock */
 //  SystemClock_Config();
   initializeSystemClock();
-
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   initializeGPIOs();
   initializeUart1();
   initializeCRC();
-  /* USER CODE BEGIN 2 */
+
   dataRdyIntReceived = 0;
   MEMS_Init();
   AI_Init(ai_network_data_weights_get(), activations);
-  /* USER CODE END 2 */
 
   /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
 
   writeLoggingMessage("Start Main");
 
@@ -151,10 +119,9 @@ int main(void)
       }
     }
   }
-  /* USER CODE END 3 */
+
 }
 
-/* USER CODE BEGIN 4 */
 static void MEMS_Init(void)
 {
   LSM6DSL_IO_t io_ctx;
@@ -246,12 +213,6 @@ static void AI_Run(float *pIn, float *pOut)
   }
 }
 
-//int _write(int fd, char * ptr, int len)
-//{
-//  HAL_UART_Transmit(&huart1, (uint8_t *)ptr, len, HAL_MAX_DELAY);
-//  return len;
-//}
-
 static uint32_t argmax(const float * values, uint32_t len)
 {
   float max_value = values[0];
@@ -264,12 +225,6 @@ static uint32_t argmax(const float * values, uint32_t len)
   }
   return max_index;
 }
-/* USER CODE END 4 */
-
-/**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
 
 #ifdef  USE_FULL_ASSERT
 /**

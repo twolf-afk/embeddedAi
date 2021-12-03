@@ -43,11 +43,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  19 .comment      000000ce  00000000  00000000  0019d20f  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000078cc  00000000  00000000  0019d2e0  2**2
+ 20 .debug_frame  000078d0  00000000  00000000  0019d2e0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .stab         000000b4  00000000  00000000  001a4bac  2**2
+ 21 .stab         000000b4  00000000  00000000  001a4bb0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 22 .stabstr      00000183  00000000  00000000  001a4c60  2**0
+ 22 .stabstr      00000183  00000000  00000000  001a4c64  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1957,18 +1957,20 @@ void initializeGPIOs(void)
  8001334:	48000400 	.word	0x48000400
 
 08001338 <writeLoggingMessage>:
-static void writeMessageToStLink(uint8_t* message, uint16_t length);
+static void writeMessageToStLink(char* message, uint16_t length);
 static void writeMessageToUsb(void);
 
 /* Private user code ---------------------------------------------------------*/
-void writeLoggingMessage(uint8_t* message)
+void writeLoggingMessage(char* message)
 {
- 8001338:	b580      	push	{r7, lr}
- 800133a:	b082      	sub	sp, #8
+ 8001338:	b590      	push	{r4, r7, lr}
+ 800133a:	b083      	sub	sp, #12
  800133c:	af00      	add	r7, sp, #0
  800133e:	6078      	str	r0, [r7, #4]
 
-	strcat(message, "\r\n");
+	if (useStLinkForLogging)
+	{
+		writeMessageToStLink(strcat(message, "\r\n"), strlen(message));
  8001340:	6878      	ldr	r0, [r7, #4]
  8001342:	f7fe ff45 	bl	80001d0 <strlen>
  8001346:	4603      	mov	r3, r0
@@ -1980,34 +1982,30 @@ void writeLoggingMessage(uint8_t* message)
  8001352:	7892      	ldrb	r2, [r2, #2]
  8001354:	8019      	strh	r1, [r3, #0]
  8001356:	709a      	strb	r2, [r3, #2]
-
-	if (useStLinkForLogging)
-	{
-		writeMessageToStLink(message, strlen(message));
- 8001358:	6878      	ldr	r0, [r7, #4]
- 800135a:	f7fe ff39 	bl	80001d0 <strlen>
- 800135e:	4603      	mov	r3, r0
- 8001360:	b29b      	uxth	r3, r3
- 8001362:	4619      	mov	r1, r3
- 8001364:	6878      	ldr	r0, [r7, #4]
- 8001366:	f000 f809 	bl	800137c <writeMessageToStLink>
+ 8001358:	687c      	ldr	r4, [r7, #4]
+ 800135a:	6878      	ldr	r0, [r7, #4]
+ 800135c:	f7fe ff38 	bl	80001d0 <strlen>
+ 8001360:	4603      	mov	r3, r0
+ 8001362:	b29b      	uxth	r3, r3
+ 8001364:	4619      	mov	r1, r3
+ 8001366:	4620      	mov	r0, r4
+ 8001368:	f000 f808 	bl	800137c <writeMessageToStLink>
 	}
 	if (useUsbForLogging)
 	{
 		writeMessageToUsb();
- 800136a:	f000 f817 	bl	800139c <writeMessageToUsb>
+ 800136c:	f000 f816 	bl	800139c <writeMessageToUsb>
 	}
 }
- 800136e:	bf00      	nop
- 8001370:	3708      	adds	r7, #8
- 8001372:	46bd      	mov	sp, r7
- 8001374:	bd80      	pop	{r7, pc}
- 8001376:	bf00      	nop
+ 8001370:	bf00      	nop
+ 8001372:	370c      	adds	r7, #12
+ 8001374:	46bd      	mov	sp, r7
+ 8001376:	bd90      	pop	{r4, r7, pc}
  8001378:	0800be00 	.word	0x0800be00
 
 0800137c <writeMessageToStLink>:
 
-static void writeMessageToStLink(uint8_t* message, uint16_t length)
+static void writeMessageToStLink(char* message, uint16_t length)
 {
  800137c:	b580      	push	{r7, lr}
  800137e:	b082      	sub	sp, #8
@@ -2221,7 +2219,7 @@ void initializeUart1(void)
 
 08001498 <uart1_transmit>:
 
-void uart1_transmit(uint8_t* pointer, uint16_t length)
+void uart1_transmit(char* pointer, uint16_t length)
 {
  8001498:	b580      	push	{r7, lr}
  800149a:	b082      	sub	sp, #8
@@ -2229,7 +2227,7 @@ void uart1_transmit(uint8_t* pointer, uint16_t length)
  800149e:	6078      	str	r0, [r7, #4]
  80014a0:	460b      	mov	r3, r1
  80014a2:	807b      	strh	r3, [r7, #2]
-	HAL_UART_Transmit(&huart1, pointer, length, HAL_MAX_DELAY);
+	HAL_UART_Transmit(&huart1, (uint8_t *)pointer, length, HAL_MAX_DELAY);
  80014a4:	887a      	ldrh	r2, [r7, #2]
  80014a6:	f04f 33ff 	mov.w	r3, #4294967295
  80014aa:	6879      	ldr	r1, [r7, #4]
@@ -2323,7 +2321,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  writeLoggingMessage("Start Main\r\n");
+  writeLoggingMessage("Start Main");
  800151e:	482d      	ldr	r0, [pc, #180]	; (80015d4 <main+0xe8>)
  8001520:	f7ff ff0a 	bl	8001338 <writeLoggingMessage>
 
@@ -2719,8 +2717,8 @@ static void AI_Run(float *pIn, float *pOut)
  80017ba:	46bd      	mov	sp, r7
  80017bc:	bdb0      	pop	{r4, r5, r7, pc}
  80017be:	bf00      	nop
- 80017c0:	0800be4c 	.word	0x0800be4c
- 80017c4:	0800be64 	.word	0x0800be64
+ 80017c0:	0800be48 	.word	0x0800be48
+ 80017c4:	0800be60 	.word	0x0800be60
  80017c8:	200012dc 	.word	0x200012dc
 
 080017cc <HAL_MspInit>:
@@ -10949,7 +10947,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
  8004710:	e011      	b.n	8004736 <HAL_RCC_OscConfig+0x2ba>
  8004712:	bf00      	nop
  8004714:	40021000 	.word	0x40021000
- 8004718:	0800be80 	.word	0x0800be80
+ 8004718:	0800be7c 	.word	0x0800be7c
  800471c:	20000000 	.word	0x20000000
  8004720:	20000004 	.word	0x20000004
         {
@@ -12207,7 +12205,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  8004df6:	bf00      	nop
  8004df8:	40022000 	.word	0x40022000
  8004dfc:	40021000 	.word	0x40021000
- 8004e00:	0800be80 	.word	0x0800be80
+ 8004e00:	0800be7c 	.word	0x0800be7c
  8004e04:	20000000 	.word	0x20000000
  8004e08:	20000004 	.word	0x20000004
 
@@ -12412,7 +12410,7 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
  8004f10:	4770      	bx	lr
  8004f12:	bf00      	nop
  8004f14:	40021000 	.word	0x40021000
- 8004f18:	0800be98 	.word	0x0800be98
+ 8004f18:	0800be94 	.word	0x0800be94
  8004f1c:	00f42400 	.word	0x00f42400
  8004f20:	007a1200 	.word	0x007a1200
 
@@ -12461,7 +12459,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8004f5c:	4618      	mov	r0, r3
  8004f5e:	bd80      	pop	{r7, pc}
  8004f60:	40021000 	.word	0x40021000
- 8004f64:	0800be90 	.word	0x0800be90
+ 8004f64:	0800be8c 	.word	0x0800be8c
 
 08004f68 <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -12488,7 +12486,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  8004f88:	4618      	mov	r0, r3
  8004f8a:	bd80      	pop	{r7, pc}
  8004f8c:	40021000 	.word	0x40021000
- 8004f90:	0800be90 	.word	0x0800be90
+ 8004f90:	0800be8c 	.word	0x0800be8c
 
 08004f94 <RCC_SetFlashLatencyFromMSIRange>:
             voltage range.
@@ -20111,7 +20109,7 @@ ai_handle ai_network_data_weights_get(void)
  8008e46:	d1e8      	bne.n	8008e1a <ai_check_custom_types+0x1e>
  8008e48:	2000      	movs	r0, #0
  8008e4a:	e7e7      	b.n	8008e1c <ai_check_custom_types+0x20>
- 8008e4c:	0800be7c 	.word	0x0800be7c
+ 8008e4c:	0800be78 	.word	0x0800be78
 
 08008e50 <ai_layers_init_all>:
  8008e50:	6b42      	ldr	r2, [r0, #52]	; 0x34

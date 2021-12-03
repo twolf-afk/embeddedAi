@@ -17,11 +17,11 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* Private function prototypes -----------------------------------------------*/
-static void writeMessageToStLink(uint8_t* message, uint16_t length);
+static void writeMessageToStLink(char* message, uint16_t length);
 static void writeMessageToUsb(void);
 
 /* Private user code ---------------------------------------------------------*/
-void writeLoggingMessage(uint8_t* message)
+void writeLoggingMessage(char* message)
 {
 
 	if (useStLinkForLogging)
@@ -34,7 +34,7 @@ void writeLoggingMessage(uint8_t* message)
 	}
 }
 
-static void writeMessageToStLink(uint8_t* message, uint16_t length)
+static void writeMessageToStLink(char* message, uint16_t length)
 {
 
 	uart1_transmit(message, length);

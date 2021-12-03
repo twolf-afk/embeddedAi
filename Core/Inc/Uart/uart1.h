@@ -21,7 +21,7 @@ UART_HandleTypeDef huart1;
 
 /* Exported functions prototypes ---------------------------------------------*/
 void initializeUart1(void);
-void uart1_transmit(uint8_t* pointer, uint16_t length);
+void uart1_transmit(char* pointer, uint16_t length);
 
 /* Private defines -----------------------------------------------------------*/
 
