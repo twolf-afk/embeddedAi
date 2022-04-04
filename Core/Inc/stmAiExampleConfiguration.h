@@ -21,7 +21,7 @@ extern "C" {
 
 /* Private defines -----------------------------------------------------------*/
 #define useStLinkForLogging 1
-#define useUsbForLogging 1
+#define useUsbForLogging 0
 
 #ifdef __cplusplus
 }

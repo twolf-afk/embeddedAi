@@ -17,8 +17,6 @@
 /* Private function prototypes -----------------------------------------------*/
 
 /* Private user code ---------------------------------------------------------*/
-
-
 void addingNumbers(uint8_t amountOfNumbers, ...)		// This is a variadic function, it takes an infinite amount of arguments
 {
 

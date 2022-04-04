@@ -19,7 +19,8 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 
 /* Exported functions prototypes ---------------------------------------------*/
-void writeLoggingMessage(char* message);
+void writeLoggingMessage(const char* format, ...);
+
 
 /* Private defines -----------------------------------------------------------*/
 

@@ -94,30 +94,11 @@ int main(void)
       LSM6DSL_Axes_t acc_axes;
       LSM6DSL_ACC_GetAxes(&MotionSensor, &acc_axes);
 
-//      int32_t x = acc_axes.x;
-//      int32_t y = acc_axes.y;
-//      int32_t z = acc_axes.z;
-//
-//      int nDigits = floor(log10(abs(x))) + 1;
-//
-//      char str[nDigits];
-//
-//      sprintf(str, "%ld", x);
+//      writeLoggingMessage("HelloWorld");
 
-//      int test = malloc(sizeof(char)*(int)log10((int) acc_axes.x));
+      printf("HelloWorld");
 
-      // Format specifiers
-      // %d indicates an short signed
-
-//      sprintf(str, "%lu", acc_axes.x);
-
-      // printf("% 5d, % 5d, % 5d\r\n",  (int) acc_axes.x, (int) acc_axes.y, (int) acc_axes.z);
-
-
-
-
-
-
+//      writeLoggingMessage("% 5d, % 5d, % 5d\r\n",  (int) acc_axes.x, (int) acc_axes.y, (int) acc_axes.z);
 
       /* Normalize data to [-1; 1] and accumulate into input buffer */
       /* Note: window overlapping can be managed here */
@@ -129,7 +110,7 @@ int main(void)
       if (write_index == AI_NETWORK_IN_1_SIZE) {
         write_index = 0;
 
-//        printf("Running inference\r\n");
+//        writeLoggingMessage("Running inference");
         AI_Run(aiInData, aiOutData);
 
         /* Output results */
@@ -140,6 +121,8 @@ int main(void)
 //        printf(": %d - %s\r\n", (int) class, activities[class]);
       }
     }
+
+    HAL_Delay(250);
   }
 
 }

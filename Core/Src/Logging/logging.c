@@ -8,9 +8,11 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdarg.h>
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
+#define logBufferSize (128);
 
 /* Private macro -------------------------------------------------------------*/
 
@@ -18,19 +20,26 @@
 
 /* Private function prototypes -----------------------------------------------*/
 static void writeMessageToStLink(char* message, uint16_t length);
-static void writeMessageToUsb(void);
+static void writeMessageToUsb(const char* format, ...);
 
 /* Private user code ---------------------------------------------------------*/
-void writeLoggingMessage(char* message)
+void writeLoggingMessage(const char* format, ...)
 {
+	int logBufferMessageSize = logBufferSize;
+	char* logBuffer[logBufferMessageSize];
 
 	if (useStLinkForLogging)
 	{
-		writeMessageToStLink(strcat(message, "\r\n"), strlen(message));
+		va_list variadicArgumentList;
+		va_start(variadicArgumentList, format);
+
+		vsnprintf(logBuffer, logBufferMessageSize, format, variadicArgumentList);
+
+		writeMessageToStLink(logBuffer, logBufferMessageSize);
 	}
 	if (useUsbForLogging)
 	{
-		writeMessageToUsb();
+		writeMessageToUsb(format);
 	}
 }
 
@@ -41,7 +50,7 @@ static void writeMessageToStLink(char* message, uint16_t length)
 
 }
 
-static void writeMessageToUsb(void)
+static void writeMessageToUsb(const char* format, ...)
 {
-
+    printf(format);
 }
